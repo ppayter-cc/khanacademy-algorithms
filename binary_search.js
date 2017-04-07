@@ -8,10 +8,10 @@ var doSearch = function(array, targetValue) {
 
     while(min <= max){
         counter++;
-        guess = floor((min+max)/2);
+        guess = Math.floor((min+max)/2);
         if(array[guess] === targetValue){
-            println("current guess: " + array[guess] + " at index " + guess);
-            println("guesses used: " + counter);
+            print("current guess: " + array[guess] + " at index " + guess);
+            print("guesses used: " + counter);
             return guess;
         }
         else if(array[guess] < targetValue){
@@ -28,8 +28,8 @@ var primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,
 		41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
 
 var result = doSearch(primes, 73);
-println("Found prime at index " + result);
+print("Found prime at index " + result);
 
-Program.assertEqual(doSearch(primes, 73), 20);
-Program.assertEqual(doSearch(primes, 2), 0);
-Program.assertEqual(doSearch(primes, 97), primes.length-1);
+//Program.assertEqual(doSearch(primes, 73), 20);
+//Program.assertEqual(doSearch(primes, 2), 0);
+//Program.assertEqual(doSearch(primes, 97), primes.length-1);

@@ -28,10 +28,11 @@ var selectionSort = function(array) {
 
 var array = [22, 11, 99, 88, 9, 7, 42];
 selectionSort(array);
-println("Array after sorting:  " + array);
+print("Array after sorting:  " + array);
 
-Program.assertEqual(array, [7, 9, 11, 22, 42, 88, 99]);
+//Program.assertEqual(array, [7, 9, 11, 22, 42, 88, 99]);
 
 var arrr = [5, 3, 899];
 selectionSort(arrr);
-Program.assertEqual(arrr, [3, 5, 899]);
+print("Array after sorting:  " + arrr);
+//Program.assertEqual(arrr, [3, 5, 899]);
