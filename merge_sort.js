@@ -1,51 +1,50 @@
 // Takes in an array that has two sorted subarrays,
-//  from [p..q] and [q+1..r], and merges the array
-var merge = function(array, p, q, r) {
+//  from [lowest..middle] and [middle+1..highest], and merges the array
+var merge = function(array, lowest, middle, highest) {
     var lowHalf = [];
     var highHalf = [];
-
-    var k = p;
+    var iLowest = lowest;
     var i;
     var j;
-    for (i = 0; k <= q; i++, k++) {
-        lowHalf[i] = array[k];
+
+    for (i = 0; iLowest <= middle; i++, iLowest++) {
+        lowHalf[i] = array[iLowest];
     }
-    for (j = 0; k <= r; j++, k++) {
-        highHalf[j] = array[k];
+    for (j = 0; iLowest <= highest; j++, iLowest++) {
+        highHalf[j] = array[iLowest];
     }
 
-    k = p;
+    iLowest = lowest;
     i = 0;
     j = 0;
 
     while (i < lowHalf.length && j < highHalf.length) {
         if (lowHalf[i] < highHalf[j]) {
-            array[k] = lowHalf[i];
+            array[iLowest] = lowHalf[i];
             i++;
-            k++;
+            iLowest++;
         } else {
-            array[k] = highHalf[j];
+            array[iLowest] = highHalf[j];
             j++;
-            k++;
+            iLowest++;
         }
     }
 
     while (i < lowHalf.length) {
-        array[k] = lowHalf[i];
+        array[iLowest] = lowHalf[i];
         i++;
-        k++;
+        iLowest++;
     }
 
     while (j < highHalf.length) {
-        array[k] = highHalf[j];
+        array[iLowest] = highHalf[j];
         j++;
-        k++;
+        iLowest++;
     }
 
     // Repeatedly compare the lowest untaken element in
     //  lowHalf with the lowest untaken element in highHalf
     //  and copy the lower of the two back into array
-
 
     // Once one of lowHalf and highHalf has been fully copied
     //  back into array, copy the remaining elements from the
@@ -53,14 +52,13 @@ var merge = function(array, p, q, r) {
 
 };
 
-
 // Takes in an array and recursively merge sorts it
-var mergeSort = function(array, p, r) {
-    if(r-p+1 > 1) {
-        var q = Math.floor((p+r)/2);
-        mergeSort(array, p, q);
-        mergeSort(array, q+1, r);
-        merge(array, p, q, r);
+var mergeSort = function(array, lowest, highest) {
+    if(highest-lowest+1 > 1) {
+        var middle = Math.floor((lowest+highest)/2);
+        mergeSort(array, lowest, middle);
+        mergeSort(array, middle+1, highest);
+        merge(array, lowest, middle, highest);
     }
 };
 
