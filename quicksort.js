@@ -1,5 +1,5 @@
 // This function partitions given array and returns
-//  the index of the pivot.
+//  the index of the pivotValue.
 // Swaps two items in an array, changing the original array
 var swap = function(array, firstIndex, secondIndex) {
     var temp = array[firstIndex];
@@ -7,36 +7,36 @@ var swap = function(array, firstIndex, secondIndex) {
     array[secondIndex] = temp;
 };
 
-var partition = function(array, p, r) {
+var partition = function(array, left, right) {
 
-    var q = p;
-    var pivot = array[r];
-    for (var i = p; i < r; i++) {
-        if (array[i] <= pivot) {
-            swap(array, q, i);
-            q++;
+    var pivotNewIndex = left;
+    var pivotValue = array[right];
+    for (var nextToCompare = left; nextToCompare < right; nextToCompare++) {
+        if (array[nextToCompare] <= pivotValue) {
+            swap(array, pivotNewIndex, nextToCompare);
+            pivotNewIndex++;
         }
     }
-    swap(array, q, i);
-    return q;
-    // Compare array[j] with array[r], for j = p, p+1,...r-1
+    swap(array, pivotNewIndex, nextToCompare);
+    return pivotNewIndex;
+    // Compare array[nextToCompare] with array[right], for nextToCompare = left, left+1,...right-1
     // maintaining that:
-    //  array[p..q-1] are values known to be <= to array[r]
-    //  array[q..j-1] are values known to be > array[r]
-    //  array[j..r-1] haven't been compared with array[r]
-    // If array[j] > array[r], just increment j.
-    // If array[j] <= array[r], swap array[j] with array[q],
-    //   increment q, and increment j.
-    // Once all elements in array[p..r-1]
-    //  have been compared with array[r],
-    //  swap array[r] with array[q], and return q.
+    //  array[left..pivotNewIndex-1] are values known to be <= to array[right]
+    //  array[pivotNewIndex..nextToCompare-1] are values known to be > array[right]
+    //  array[nextToCompare..right-1] haven't been compared with array[right]
+    // If array[nextToCompare] > array[right], just increment nextToCompare.
+    // If array[nextToCompare] <= array[right], swap array[nextToCompare] with array[pivotNewIndex],
+    //   increment pivotNewIndex, and increment nextToCompare.
+    // Once all elements in array[left..right-1]
+    //  have been compared with array[right],
+    //  swap array[right] with array[pivotNewIndex], and return pivotNewIndex.
 };
 
-var quickSort = function(array, p, r) {
-    if (p < r) {
-        var pivot = partition(array, p, r);
-        quickSort(array, p, pivot-1);
-        quickSort(array, pivot+1, r);
+var quickSort = function(array, left, right) {
+    if (left < right) {
+        var pivotNewIndex = partition(array, left, right);
+        quickSort(array, left, pivotNewIndex-1);
+        quickSort(array, pivotNewIndex+1, right);
     }
 };
 
